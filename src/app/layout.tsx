@@ -1,9 +1,8 @@
 import React from 'react'
 import './globals.css'
-import { IBM_Plex_Sans } from 'next/font/google'
+import { Inter } from 'next/font/google'
 
-const font = IBM_Plex_Sans({
-  weight: ['400', '700'],
+const font = Inter({
   subsets: ['latin'],
 })
 
@@ -18,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="pt-br">
       <body className={font.className}>{children}</body>
     </html>
   )
