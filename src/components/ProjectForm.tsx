@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-type contactFormData = z.infer<typeof contactsFormSchema>
+type projectFormData = z.infer<typeof contactsFormSchema>
 
 const contactsFormSchema = z.object({
   aboutTheProject: z
@@ -23,16 +23,19 @@ const contactsFormSchema = z.object({
 export default function ProjectForm({
   onSubmit,
   onBack,
+  defaultValues,
 }: {
-  onSubmit: (values: contactFormData) => void
+  onSubmit: (values: projectFormData) => void
   onBack: () => void
+  defaultValues: projectFormData
 }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<contactFormData>({
+  } = useForm<projectFormData>({
     resolver: zodResolver(contactsFormSchema),
+    defaultValues,
   })
 
   return (
@@ -45,13 +48,15 @@ export default function ProjectForm({
           Objetivos do projeto
         </label>
         <textarea
-          className="border border-gray-100 w-full p-4 rounded-sm mt-2 focus:border-purple-mid focus:outline-none"
+          className="border border-gray-100 w-full p-4 rounded-sm mt-2 focus:border-purple-mid focus:outline-none placeholder-gray-200"
           id="about-project-form"
           placeholder="Descreva quais os objetivos desse projeto"
           {...register('aboutTheProject')}
         />
         {errors.aboutTheProject && (
-          <span className="text-red-500 text-sm">{errors.aboutTheProject.message}</span>
+          <span className="text-red-500 text-sm">
+            {errors.aboutTheProject.message}
+          </span>
         )}
       </div>
       <div className="flex justify-between items-center">

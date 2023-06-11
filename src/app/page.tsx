@@ -4,27 +4,50 @@ import ContactForm from '@/components/ContactForm'
 import ProjectForm from '@/components/ProjectForm'
 import Steps, { IStep } from '@/components/Steps'
 import { useForm } from '@/hooks/useForm'
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function Home() {
+  const [contactFormsValue, setContactFormsValue] = useState({
+    name: '',
+    phone: '',
+    email: '',
+  })
+  const [companyFormValues, setCompanyFormValuesForm] = useState({
+    companyName: '',
+    aboutBusiness: '',
+    employeesQuantity: '',
+  })
+  const [projectFormValues, setProjectFormValues] = useState({
+    aboutTheProject: '',
+  })
+
   const formSteps: IStep[] = [
     {
       id: '1',
       name: 'Contatos',
-      formComponent: <ContactForm onSubmit={(data) => handleSumit(data)} />,
+      formComponent: (
+        <ContactForm
+          onSubmit={(data) => handleSumit(data)}
+          defaultValues={contactFormsValue}
+        />
+      ),
     },
     {
       id: '2',
       name: 'Empresa',
       formComponent: (
-        <CompanyForm onSubmit={(data) => handleSumit(data)} onBack={backStep} />
+        <CompanyForm
+          onSubmit={(data) => handleSumit(data)}
+          onBack={backStep}
+          defaultValues={companyFormValues}
+        />
       ),
     },
     {
       id: '3',
       name: 'Projeto',
       formComponent: (
-        <ProjectForm onSubmit={(data) => handleSumit(data)} onBack={backStep} />
+        <ProjectForm onSubmit={(data) => handleSumit(data)} onBack={backStep} defaultValues={projectFormValues}/>
       ),
     },
   ]
@@ -36,7 +59,16 @@ export default function Home() {
   }
 
   function handleSumit(values: any) {
-    console.log(values)
+    if (currentStep === 0) {
+      console.log(values)
+      setContactFormsValue(values)
+    }
+    if (currentStep === 1) {
+      setCompanyFormValuesForm(values)
+    }
+    if (currentStep === 2) {
+      setProjectFormValues(values)
+    }
     changeStep(currentStep + 1)
   }
 

@@ -27,8 +27,10 @@ const contactsFormSchema = z.object({
 
 export default function ContactForm({
   onSubmit,
+  defaultValues,
 }: {
   onSubmit: (values: contactFormData) => void
+  defaultValues: contactFormData
 }) {
   const {
     register,
@@ -36,6 +38,7 @@ export default function ContactForm({
     formState: { errors },
   } = useForm<contactFormData>({
     resolver: zodResolver(contactsFormSchema),
+    defaultValues,
   })
 
   return (
@@ -50,7 +53,7 @@ export default function ContactForm({
         <input
           autoComplete="off"
           placeholder="Como prefere ser chamado"
-          className="border border-gray-100 w-full p-4 rounded-sm mt-2 focus:border-purple-mid focus:outline-none"
+          className="border border-gray-100 w-full p-4 rounded-sm mt-2 focus:border-purple-mid focus:outline-none placeholder-gray-200"
           id="name-form"
           type="text"
           {...register('name')}
@@ -64,7 +67,7 @@ export default function ContactForm({
           Telefone
         </label>
         <input
-          className="border border-gray-100 w-full p-4 rounded-sm mt-2 focus:border-purple-mid focus:outline-none"
+          className="border border-gray-100 w-full p-4 rounded-sm mt-2 focus:border-purple-mid focus:outline-none placeholder-gray-200"
           id="phone-form"
           type="text"
           placeholder="Digite seu número de WhatsApp"
@@ -79,7 +82,7 @@ export default function ContactForm({
           E-mail
         </label>
         <input
-          className="border border-gray-100 w-full p-4 rounded-sm mt-2 focus:border-purple-mid focus:outline-none"
+          className="border border-gray-100 w-full p-4 rounded-sm mt-2 focus:border-purple-mid focus:outline-none placeholder-gray-200"
           id="email-form"
           type="email"
           placeholder="Digite seu e-mail"

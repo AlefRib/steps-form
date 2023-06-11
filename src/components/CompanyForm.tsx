@@ -15,11 +15,13 @@ const companyFormSchema = z.object({
 })
 
 export default function CompanyForm({
+  defaultValues,
   onSubmit,
   onBack,
 }: {
   onSubmit: (values: companyFormData) => void
   onBack: () => void
+  defaultValues: companyFormData
 }) {
   const {
     register,
@@ -27,6 +29,7 @@ export default function CompanyForm({
     formState: { errors },
   } = useForm<companyFormData>({
     resolver: zodResolver(companyFormSchema),
+    defaultValues,
   })
 
   return (
@@ -41,7 +44,7 @@ export default function CompanyForm({
         <input
           autoComplete="off"
           placeholder="Qual é o nome da empresa"
-          className="border border-gray-100 w-full p-4 rounded-sm mt-2 focus:border-purple-mid focus:outline-none"
+          className="border border-gray-100 w-full p-4 rounded-sm mt-2 focus:border-purple-mid focus:outline-none placeholder-gray-200"
           id="company-name-form"
           type="text"
           {...register('companyName')}
@@ -58,7 +61,7 @@ export default function CompanyForm({
           Número de funcionários
         </label>
         <input
-          className="border border-gray-100 w-full p-4 rounded-sm mt-2 focus:border-purple-mid focus:outline-none"
+          className="border border-gray-100 w-full p-4 rounded-sm mt-2 focus:border-purple-mid focus:outline-none placeholder-gray-200"
           id="employees-quantity"
           type="text"
           placeholder="Digite o número de colaboradores"
@@ -79,7 +82,7 @@ export default function CompanyForm({
           Sobre seu negócio
         </label>
         <textarea
-          className="border border-gray-100 w-full p-4 rounded-sm mt-2 focus:border-purple-mid focus:outline-none"
+          className="border border-gray-100 w-full p-4 rounded-sm mt-2 focus:border-purple-mid focus:outline-none placeholder-gray-200"
           id="about-business-form"
           placeholder="Fale um pouco sobre seus produtos ou serviços"
           {...register('aboutBusiness')}
