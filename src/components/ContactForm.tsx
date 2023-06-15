@@ -43,7 +43,7 @@ export default function ContactForm({
 
   return (
     <form
-      className="flex flex-col gap-4 w-96"
+      className="flex flex-col gap-4 w-96 animate-waving-hand "
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="gap-1">

@@ -47,12 +47,17 @@ export default function Home() {
       id: '3',
       name: 'Projeto',
       formComponent: (
-        <ProjectForm onSubmit={(data) => handleSumit(data)} onBack={backStep} defaultValues={projectFormValues}/>
+        <ProjectForm
+          onSubmit={(data) => handleSumit(data)}
+          onBack={backStep}
+          defaultValues={projectFormValues}
+        />
       ),
     },
   ]
 
-  const { currentComponent, currentStep, changeStep } = useForm(formSteps)
+  const { currentComponent, currentStep, changeStep, isChangingStep } =
+    useForm(formSteps)
 
   function backStep() {
     changeStep(currentStep - 1)
@@ -77,7 +82,9 @@ export default function Home() {
       <div className="border border-gray-100 rounded-md p-8 flex items-center justify-center flex-col">
         <Steps steps={formSteps} currentStep={currentStep} />
         <span className="h-px w-full bg-gray-300 m-8"></span>
-        {currentComponent}
+        <div className={`${isChangingStep ? 'animate-go-right' : ''}`}>
+          {currentComponent}
+        </div>
       </div>
     </main>
   )
